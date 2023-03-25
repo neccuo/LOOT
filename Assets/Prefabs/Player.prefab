@@ -110,14 +110,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  timeBetweenShooting: 0
+  timeBetweenShooting: 0.67
   spread: 0
   range: 10
   reloadTime: 0
   timeBetweenShots: 0
-  magazineSize: 0
-  bulletsPerTap: 0
-  isAuto: 0
+  magazineSize: 10
+  bulletsPerTap: 1
+  bulletsLeft: 0
+  isAuto: 1
   fpsCam: {fileID: 963194227}
   attackPoint: {fileID: 856707089}
   whatIsEnemy:
@@ -256,6 +257,7 @@ GameObject:
   - component: {fileID: 5533090734404186361}
   - component: {fileID: 2840865867544916084}
   - component: {fileID: 530218072}
+  - component: {fileID: 530218073}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -431,6 +433,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptText: {fileID: 0}
+  ammoText: {fileID: 0}
   crosshair: {fileID: 0}
   defaultCH: {fileID: 21300000, guid: 130f9a1da961f154397c802bd8cb056a, type: 3}
   interactCH: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!114 &530218073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5383597954806346647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ef0bc18a760924fb3247134739c82b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunSystem: {fileID: 507952098}
