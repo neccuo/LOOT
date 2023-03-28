@@ -10,10 +10,18 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ammoText;
 
     [SerializeField] private Image crosshair;
+    // crosshair add-on when hitting the enemy
+    [SerializeField] private GameObject hitMark;
+
 
     [SerializeField] private Sprite defaultCH;
     [SerializeField] private Sprite interactCH;
 
+    private void Awake() 
+    {
+        Cursor.visible = false;
+        HitMarkActive(false);
+    }
 
     public void UpdatePromptText(string promptMessage)
     {
@@ -29,6 +37,11 @@ public class PlayerUI : MonoBehaviour
     {
         ammoText.text = ammoInfo;
         ammoText.color = color;
+    }
+
+    public void HitMarkActive(bool isActive)
+    {
+        hitMark.SetActive(isActive);
     }
 
     public void DefaultCrosshair()

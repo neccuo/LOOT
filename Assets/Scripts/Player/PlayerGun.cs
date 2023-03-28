@@ -27,6 +27,17 @@ public class PlayerGun : MonoBehaviour
             playerUI.UpdateAmmoText(ammoText, Color.white);
     }
 
+    public void ActivateHitMark()
+    {
+        playerUI.HitMarkActive(true);
+        Invoke("DeactivateHitMark", 0.1f);
+    }
+
+    private void DeactivateHitMark()
+    {
+        playerUI.HitMarkActive(false);
+    }
+
     // May need optimization
     string GenerateAmmoText()
     {

@@ -13,18 +13,26 @@ public class GunSystem : MonoBehaviour
 
     // bools
     bool isShooting, isReadyToShoot, isReloading;
+    bool isPlayer;
 
     // reference
+    public GameObject holder;
     public Camera fpsCam;
     public Transform attackPoint;
     public RaycastHit rayHit;
     public LayerMask whatIsEnemy;
     public GameObject flashEffect;
 
+    EventManager eventManager;
+
     private Ray ray;
 
     private void Awake() 
     {
+        isPlayer = holder.CompareTag("Player");
+
+        eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
+
         flashEffect.transform.localScale = new Vector3(0.12f, 0.12f, 0.12f);
         ResetShot();
         ReloadFinished();
@@ -50,19 +58,6 @@ public class GunSystem : MonoBehaviour
         isShooting = isActive;
     }
 
-    private void SemiShoot()
-    {
-        isReadyToShoot = false;
-        isShooting = false;
-        Instantiate(flashEffect, attackPoint.position, Quaternion.identity);
-        if(Physics.Raycast(ray, out rayHit, range, whatIsEnemy))
-        {
-            Debug.Log(rayHit.collider.name + " is hit.");
-        }
-        bulletsLeft--;
-        Invoke("ResetShot", timeBetweenShooting);
-    }
-
     private void Shoot()
     {
         isReadyToShoot = false;
@@ -70,9 +65,23 @@ public class GunSystem : MonoBehaviour
         if(Physics.Raycast(ray, out rayHit, range, whatIsEnemy))
         {
             Debug.Log(rayHit.collider.name + " is hit.");
+            if(isPlayer && rayHit.collider.CompareTag("Enemy"))
+            {
+                eventManager.PlayerShotLandedEvent.Invoke();
+            }
         }
         bulletsLeft--;
         Invoke("ResetShot", timeBetweenShooting);
+    }
+
+    private void ActivateHitMark()
+    {
+        holder.GetComponent<PlayerUI>().HitMarkActive(true);
+    }
+
+    private void DeactivateHitMark()
+    {
+        holder.GetComponent<PlayerUI>().HitMarkActive(false);
     }
 
     private void ResetShot()
